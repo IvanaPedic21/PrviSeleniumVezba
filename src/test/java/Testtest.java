@@ -65,34 +65,36 @@ public class Testtest {
     driver.quit();
     }
 
-@Test
+    @Test
 
-    public void invalidUsernameInvalidPassword(){
+    public void TestINvalidUsernameInvalidPass(){
+        WebDriver driver = new ChromeDriver ();
+        driver.get ( "https://www.saucedemo.com/" );
 
-        WebDriver driver = new ChromeDriver();
-        driver.get("https://www.saucedemo.com/");
+        stampaj ( "[TEST] Entering invalid username" );
 
-        stampaj("[TEST] Entering invalid username");
-        WebElement usernameField = driver.findElement(By.name("user-name"));
-        usernameField.click();
-        usernameField.sendKeys("locked_out_user");
+        WebElement userNameField = driver.findElement ( By.name ("user-name") );
+        userNameField.sendKeys ( "carrot_user" );
 
-        stampaj("[TEST] Entering invalid passwoord ");
-        WebElement passwordField = driver.findElement(By.id("password"));
-        passwordField.sendKeys("nije");
+        stampaj ( "[TEST] Entering invalid password" );
+        WebElement passwordField = driver.findElement ( By.id ("password"));
+        passwordField.sendKeys ( "secret_cabbage" );
 
-        stampaj("[TEST] Clicking login button");
-        WebElement loginButton = driver.findElement(By.id("login-button"));
-        loginButton.click();
+        stampaj ( "[TEST] Entering login button" );
 
-        stampaj("[TEST] Checking error message, is it displayed ");
-        WebElement errorMessage = driver.findElement(By.xpath("//h3[@@data-test = 'error'"));
-        assert errorMessage.isDisplayed(): "Error message is not displayed";
+        WebElement logInButton = driver.findElement ( By.id ( "login-button" ));
+        logInButton.click ();
 
-         stampaj ( "[TEST] Checking error message, is it wright message" );
-         String errorMessageText = errorMessage.getText();
-         assert errorMessageText.equals("Epic sadface: Username and password do not match any user in this service" ):"Wrong error." +
-                 "Expected: Epic sadface: Username and password do not match any user in this service.Actual:"+errorMessageText;
+        stampaj ( "[TEST] Checking error message, is it displayed" );
+
+        WebElement errorMessage = driver.findElement ( By.xpath ( "//h3[@data-test = 'error']" ) );
+        assert errorMessage.isDisplayed (): "Error message is not displayed";
+
+        stampaj ( "[TEST] Checking error message, is it wright message" );
+        String errorMessageText = errorMessage.getText ();
+        assert errorMessageText.equals ( "Epic sadface: Username and password do not match any user in this service" ): "Wrong error" +
+                "Expected: Epic sadface: Username and password do not match any user in this service " +
+                "Actual: " + errorMessageText;
 
         driver.quit();
 
